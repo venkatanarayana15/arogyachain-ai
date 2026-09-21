@@ -195,8 +195,9 @@ def main():
 
                 s["daily"].append(dispensed)
 
-                # Vertex format row (7-day horizon target computed in preprocess step)
-                tx_vertex.append([d.isoformat(), phc["id"], f"{name} {strength}", dispensed])
+                # Vertex format row — series identifier uses the SAME RTDB-safe key
+                # as inventory_seed.json so trained model IDs map 1:1 to live inventory
+                tx_vertex.append([d.isoformat(), phc["id"], sanitize_key(name, strength), dispensed])
 
     # ---------------- write transactions_full.csv ----------------
     full_path = os.path.join(args.outdir, "transactions_full.csv")

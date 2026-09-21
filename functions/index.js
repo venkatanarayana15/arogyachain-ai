@@ -48,16 +48,27 @@ exports.onTransactionWrite = functions.database
     if (tx.type === "dispense") stock = Math.max(0, stock - Number(tx.quantity || 0));
     else if (tx.type === "restock" || tx.type === "adjust") stock += Number(tx.quantity || 0);
 
-    const history = (inv.history14 || []).concat([Number(tx.quantity || 0)]).slice(-14);
+    // demand history: record actual dispensed demand only — restock/adjust
+    // quantities would poison the demand signal the forecaster consumes
+    const demandEntry = tx.type === "dispense" ? Math.max(0, Number(tx.quantity || 0)) : 0;
+    const history = (inv.history14 || []).concat([demandEntry]).slice(-14);
     const avgDaily = history.length ? history.reduce((a, b) => a + b, 0) / history.length : 1;
+
+    const updatedInv = {
+      ...inv,
+      stock,
+      history14: history,
+      avgDailyUse: Math.round(avgDaily * 10) / 10,
+    };
 
     await invRef.update({
       stock,
       history14: history,
-      avgDailyUse: Math.round(avgDaily * 10) / 10,
+      avgDailyUse: updatedInv.avgDailyUse,
     });
 
-    await scoreAndMaybeAlert(phcId, medKey, { stock, avgDaily });
+    // pass the FULL updated inventory so the forecaster sees history14
+    await scoreAndMaybeAlert(phcId, medKey, updatedInv);
     return null;
   });
 

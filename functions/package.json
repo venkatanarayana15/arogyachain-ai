@@ -8,7 +8,8 @@
   },
   "scripts": {
     "serve": "firebase emulators:start --only functions,database",
-    "logs": "firebase functions:log"
+    "logs": "firebase functions:log",
+    "test": "node test/e2e.js"
   },
   "dependencies": {
     "firebase-admin": "^12.6.0",

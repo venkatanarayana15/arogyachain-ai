@@ -234,6 +234,7 @@ class _DashboardPageState extends State<DashboardPage> {
   bool listening = false;
   String lastHeard = '';
   String lastStatus = '';
+  final TextEditingController _manualController = TextEditingController();
 
   final List<String> phcList = const [
     'PHC-001', 'PHC-002', 'PHC-003', 'PHC-004',
@@ -282,7 +283,15 @@ class _DashboardPageState extends State<DashboardPage> {
   void dispose() {
     invSub?.cancel();
     riskSub?.cancel();
+    _manualController.dispose();
     super.dispose();
+  }
+
+  Future<void> _submitManual() async {
+    final text = _manualController.text.trim();
+    if (text.isEmpty) return;
+    await _handleUtterance(text);
+    _manualController.clear();
   }
 
   // ----------------------------- voice -------------------------------------
@@ -293,7 +302,12 @@ class _DashboardPageState extends State<DashboardPage> {
       setState(() => listening = false);
       return;
     }
-    final ok = await backend.initSpeech();
+    bool ok = false;
+    try {
+      ok = await backend.initSpeech();
+    } catch (_) {
+      ok = false; // plugin unavailable (desktop/test env) → manual entry remains
+    }
     if (!ok) {
       _toast('Speech recognition unavailable on this device.');
       return;
@@ -492,6 +506,28 @@ class _DashboardPageState extends State<DashboardPage> {
                   child: Text(lastStatus,
                       style: TextStyle(color: Colors.green.shade700, fontSize: 12)),
                 ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _manualController,
+                      decoration: const InputDecoration(
+                        hintText: 'Manual entry, e.g. "Paracetamol 50"',
+                        isDense: true,
+                        border: OutlineInputBorder(),
+                      ),
+                      onSubmitted: (_) => _submitManual(),
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton.filledTonal(
+                    onPressed: _submitManual,
+                    icon: const Icon(Icons.add),
+                    tooltip: 'Add entry',
+                  ),
+                ],
+              ),
             ],
           ),
         ),
@@ -581,10 +617,10 @@ class _DashboardPageState extends State<DashboardPage> {
                   trailing: FilledButton(
                     onPressed: () async {
                       if (demoMode) {
+                        // move stock out of donor AND into receiver (bugfix:
+                        // receiver stock must increase, not just donor decrease)
                         MockData.instance.applyDispense(rec.fromPhc, rec.medicine, rec.quantity);
-                        if (rec.toPhc != phcId) {
-                          MockData.instance.applyDispense(rec.toPhc, rec.medicine, -rec.quantity);
-                        }
+                        MockData.instance.applyDispense(rec.toPhc, rec.medicine, -rec.quantity);
                       } else {
                         await backend.executeTransfer(rec.id);
                       }

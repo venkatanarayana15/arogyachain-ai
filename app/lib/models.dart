@@ -70,14 +70,22 @@ enum AlertChannel { fcm, whatsapp }
 /// Mock Firebase for demo mode — same read/write contract as RTDB so the UI
 /// never knows the difference. Seeded with the 3-PHC story for the demo video.
 class MockData {
-  static final MockData instance = MockData._();
-  MockData._();
+  // non-final so tests can reset() the singleton to a fresh demo story
+  static MockData instance = MockData._();
+  MockData._() {
+    _seed();
+  }
+
+  /// Reset to the canonical demo story (used by tests and re-runs).
+  static void reset() {
+    instance = MockData._();
+  }
 
   final Map<String, Map<String, Medicine>> inventory = {};
   final Map<String, Map<String, RiskScore>> riskScores = {};
   final List<Recommendation> recommendations = [];
 
-  MockData() {
+  void _seed() {
     final seed = {
       'PHC-001': {
         'name': 'Thiruvallur Main',
@@ -170,17 +178,29 @@ class MockData {
     final med = inventory[phc]?[medKey];
     if (med == null) return;
     med.stock = (med.stock - qty).clamp(0, 1 << 30);
+    _recomputeRisk(phc, medKey, med);
+  }
+
+  void _recomputeRisk(String phc, String medKey, Medicine med) {
     final r = med.risk;
-    if (r != null) {
-      final newCover = med.avgDailyUse > 0 ? med.stock / med.avgDailyUse : 14.0;
-      med.risk = RiskScore(
-        risk: (100 * (1 - newCover / 14)).clamp(0, 100).toDouble(),
-        daysOfCover: newCover,
-        forecast7d: (med.avgDailyUse * 7).round(),
-        source: r.source,
-        updatedAtMs: DateTime.now().millisecondsSinceEpoch,
-      );
-      riskScores[phc]![medKey] = med.risk!;
-    }
+    final newCover = med.avgDailyUse > 0 ? med.stock / med.avgDailyUse : 14.0;
+    // same composite shape as the Cloud Function: coverage dominates (0.6),
+    // 7-day deficit pushes it up (0.3), reorder-buffer urgency adds (0.1)
+    final total7d = med.avgDailyUse * 7;
+    final deficit = (total7d - med.stock).clamp(0, 1 << 30).toDouble();
+    final deficitRatio = total7d > 0 ? deficit / total7d : 0.0;
+    final reorder = med.reorderLevel > 0 ? med.reorderLevel : (total7d * 1.5).round();
+    final riskVal = 100 *
+        (0.6 * (1 - newCover / 14).clamp(0.0, 1.0) +
+            0.3 * deficitRatio +
+            0.1 * (1 - med.stock / reorder).clamp(0.0, 1.0));
+    med.risk = RiskScore(
+      risk: riskVal.clamp(0, 100).toDouble(),
+      daysOfCover: newCover,
+      forecast7d: total7d.round(),
+      source: r?.source ?? 'local-gbm',
+      updatedAtMs: DateTime.now().millisecondsSinceEpoch,
+    );
+    riskScores[phc]![medKey] = med.risk!;
   }
 }

@@ -85,6 +85,18 @@ firebase deploy --only hosting   # serves app/build/web
 3. **Recommended Transfers** card: *"Transfer 750 × Paracetamol_500mg from PHC-005 → PHC-001"*
 4. Tap **Approve** → PHC-005 stock decrements, alert written to `alertLog` (WhatsApp in live mode)
 
+## Tests — three end-to-end suites
+
+```bash
+python test_pipeline_e2e.py        # data pipeline: 7 scenarios (schema, keys, consistency, backtest claim)
+cd functions && npm test           # Cloud Functions E2E: 8 scenarios (trigger, scheduled, all 3 HTTPS flows)
+cd app && flutter test             # UI E2E: full demo story through the real widgets
+```
+All suites run offline with no cloud account. The Functions harness loads the real
+`index.js` against a fake RTDB and **caught a real bug** during development: the
+trigger path originally passed a partial inventory object to the forecaster,
+silently zeroing every forecast (fixed; regression-tested by scenario 1).
+
 ## Impact numbers (from data_card.md)
 
 - 96,407 simulated events, 8 PHCs, 30 NLEM medicines, 365 days
