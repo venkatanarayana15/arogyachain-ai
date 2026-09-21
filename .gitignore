@@ -1,0 +1,31 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node / Firebase
+functions/node_modules/
+functions/*.log
+.firebase/
+firebase-debug.log
+firestore-debug.log
+ui-debug.log
+
+# Flutter
+app/.dart_tool/
+app/.flutter-plugins*
+app/build/
+app/pubspec.lock
+app/.idea/
+app/android/.gradle/
+app/ios/Pods/
+
+# Env & secrets
+.env
+serviceAccountKey*.json
+*.keystore
+key.properties
+
+# OS
+.DS_Store
+Thumbs.db

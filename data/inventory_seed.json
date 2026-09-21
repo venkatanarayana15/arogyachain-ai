@@ -1,0 +1,1972 @@
+{
+  "inventory": {
+    "PHC-001": {
+      "name": "Thiruvallur Main",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 25042,
+          "reorderLevel": 210,
+          "avgDailyUse": 21.0
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 13039,
+          "reorderLevel": 100,
+          "avgDailyUse": 10.1
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 27571,
+          "reorderLevel": 205,
+          "avgDailyUse": 20.5
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 23928,
+          "reorderLevel": 207,
+          "avgDailyUse": 20.7
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 12588,
+          "reorderLevel": 110,
+          "avgDailyUse": 11.1
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 23141,
+          "reorderLevel": 197,
+          "avgDailyUse": 19.7
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 12497,
+          "reorderLevel": 102,
+          "avgDailyUse": 10.3
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 30313,
+          "reorderLevel": 280,
+          "avgDailyUse": 28.0
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 16014,
+          "reorderLevel": 134,
+          "avgDailyUse": 13.4
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 8058,
+          "reorderLevel": 63,
+          "avgDailyUse": 6.4
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 33960,
+          "reorderLevel": 240,
+          "avgDailyUse": 24.1
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 26829,
+          "reorderLevel": 224,
+          "avgDailyUse": 22.4
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 6795,
+          "reorderLevel": 52,
+          "avgDailyUse": 5.2
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 23005,
+          "reorderLevel": 188,
+          "avgDailyUse": 18.9
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 23454,
+          "reorderLevel": 190,
+          "avgDailyUse": 19.1
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 29633,
+          "reorderLevel": 245,
+          "avgDailyUse": 24.6
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 12468,
+          "reorderLevel": 106,
+          "avgDailyUse": 10.6
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 8860,
+          "reorderLevel": 72,
+          "avgDailyUse": 7.3
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 25144,
+          "reorderLevel": 215,
+          "avgDailyUse": 21.6
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 22728,
+          "reorderLevel": 191,
+          "avgDailyUse": 19.1
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 9044,
+          "reorderLevel": 73,
+          "avgDailyUse": 7.4
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 28941,
+          "reorderLevel": 230,
+          "avgDailyUse": 23.0
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 12157,
+          "reorderLevel": 98,
+          "avgDailyUse": 9.9
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 17521,
+          "reorderLevel": 145,
+          "avgDailyUse": 14.6
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 11969,
+          "reorderLevel": 99,
+          "avgDailyUse": 9.9
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 9119,
+          "reorderLevel": 80,
+          "avgDailyUse": 8.0
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 26345,
+          "reorderLevel": 211,
+          "avgDailyUse": 21.1
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 14532,
+          "reorderLevel": 121,
+          "avgDailyUse": 12.1
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 19867,
+          "reorderLevel": 160,
+          "avgDailyUse": 16.0
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 35383,
+          "reorderLevel": 467,
+          "avgDailyUse": 46.7
+        }
+      }
+    },
+    "PHC-002": {
+      "name": "Ponneri",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 12288,
+          "reorderLevel": 215,
+          "avgDailyUse": 21.5
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 6418,
+          "reorderLevel": 127,
+          "avgDailyUse": 12.8
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 8065,
+          "reorderLevel": 140,
+          "avgDailyUse": 14.1
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 9904,
+          "reorderLevel": 188,
+          "avgDailyUse": 18.9
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 10950,
+          "reorderLevel": 212,
+          "avgDailyUse": 21.3
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 3065,
+          "reorderLevel": 60,
+          "avgDailyUse": 6.1
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 1779,
+          "reorderLevel": 34,
+          "avgDailyUse": 3.4
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 13847,
+          "reorderLevel": 259,
+          "avgDailyUse": 25.9
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 14395,
+          "reorderLevel": 241,
+          "avgDailyUse": 24.1
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 12796,
+          "reorderLevel": 218,
+          "avgDailyUse": 21.9
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 3397,
+          "reorderLevel": 62,
+          "avgDailyUse": 6.3
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 14064,
+          "reorderLevel": 244,
+          "avgDailyUse": 24.4
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 8792,
+          "reorderLevel": 162,
+          "avgDailyUse": 16.3
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 13763,
+          "reorderLevel": 239,
+          "avgDailyUse": 23.9
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 3982,
+          "reorderLevel": 75,
+          "avgDailyUse": 7.5
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 12345,
+          "reorderLevel": 208,
+          "avgDailyUse": 20.9
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 11359,
+          "reorderLevel": 187,
+          "avgDailyUse": 18.7
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 9609,
+          "reorderLevel": 185,
+          "avgDailyUse": 18.5
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 11884,
+          "reorderLevel": 230,
+          "avgDailyUse": 23.0
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 10939,
+          "reorderLevel": 205,
+          "avgDailyUse": 20.5
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 12777,
+          "reorderLevel": 212,
+          "avgDailyUse": 21.3
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 10801,
+          "reorderLevel": 202,
+          "avgDailyUse": 20.2
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 9809,
+          "reorderLevel": 192,
+          "avgDailyUse": 19.2
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 7883,
+          "reorderLevel": 129,
+          "avgDailyUse": 12.9
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 6275,
+          "reorderLevel": 114,
+          "avgDailyUse": 11.4
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 9155,
+          "reorderLevel": 170,
+          "avgDailyUse": 17.1
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 2246,
+          "reorderLevel": 37,
+          "avgDailyUse": 3.8
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 11289,
+          "reorderLevel": 218,
+          "avgDailyUse": 21.9
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 4517,
+          "reorderLevel": 84,
+          "avgDailyUse": 8.4
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 3444,
+          "reorderLevel": 109,
+          "avgDailyUse": 10.9
+        }
+      }
+    },
+    "PHC-003": {
+      "name": "Gummidipoondi",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 2409,
+          "reorderLevel": 152,
+          "avgDailyUse": 15.3
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 3153,
+          "reorderLevel": 194,
+          "avgDailyUse": 19.4
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 2889,
+          "reorderLevel": 162,
+          "avgDailyUse": 16.3
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 2314,
+          "reorderLevel": 133,
+          "avgDailyUse": 13.4
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 3286,
+          "reorderLevel": 175,
+          "avgDailyUse": 17.5
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 2097,
+          "reorderLevel": 112,
+          "avgDailyUse": 11.3
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 881,
+          "reorderLevel": 54,
+          "avgDailyUse": 5.4
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 2053,
+          "reorderLevel": 115,
+          "avgDailyUse": 11.5
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 2238,
+          "reorderLevel": 126,
+          "avgDailyUse": 12.6
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 2139,
+          "reorderLevel": 108,
+          "avgDailyUse": 10.9
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 857,
+          "reorderLevel": 45,
+          "avgDailyUse": 4.6
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 3703,
+          "reorderLevel": 178,
+          "avgDailyUse": 17.9
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 2620,
+          "reorderLevel": 175,
+          "avgDailyUse": 17.6
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 2028,
+          "reorderLevel": 125,
+          "avgDailyUse": 12.6
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 3585,
+          "reorderLevel": 186,
+          "avgDailyUse": 18.6
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 3506,
+          "reorderLevel": 220,
+          "avgDailyUse": 22.1
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 3059,
+          "reorderLevel": 174,
+          "avgDailyUse": 17.4
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 3795,
+          "reorderLevel": 207,
+          "avgDailyUse": 20.8
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 2551,
+          "reorderLevel": 155,
+          "avgDailyUse": 15.5
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 1456,
+          "reorderLevel": 85,
+          "avgDailyUse": 8.6
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 2823,
+          "reorderLevel": 152,
+          "avgDailyUse": 15.2
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 679,
+          "reorderLevel": 38,
+          "avgDailyUse": 3.9
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 4184,
+          "reorderLevel": 219,
+          "avgDailyUse": 21.9
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 4077,
+          "reorderLevel": 210,
+          "avgDailyUse": 21.0
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 704,
+          "reorderLevel": 44,
+          "avgDailyUse": 4.4
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 1362,
+          "reorderLevel": 79,
+          "avgDailyUse": 7.9
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 2705,
+          "reorderLevel": 132,
+          "avgDailyUse": 13.2
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 2542,
+          "reorderLevel": 146,
+          "avgDailyUse": 14.6
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 2371,
+          "reorderLevel": 137,
+          "avgDailyUse": 13.8
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 1366,
+          "reorderLevel": 139,
+          "avgDailyUse": 13.9
+        }
+      }
+    },
+    "PHC-004": {
+      "name": "Uthukottai",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 68,
+          "reorderLevel": 45,
+          "avgDailyUse": 4.5
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 86,
+          "reorderLevel": 37,
+          "avgDailyUse": 3.8
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 18,
+          "reorderLevel": 20,
+          "avgDailyUse": 2.0
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 320,
+          "reorderLevel": 162,
+          "avgDailyUse": 16.3
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 6,
+          "reorderLevel": 130,
+          "avgDailyUse": 13.0
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 4,
+          "reorderLevel": 208,
+          "avgDailyUse": 20.9
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 38,
+          "reorderLevel": 67,
+          "avgDailyUse": 6.7
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 104,
+          "reorderLevel": 97,
+          "avgDailyUse": 9.8
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 34,
+          "reorderLevel": 114,
+          "avgDailyUse": 11.4
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 129,
+          "reorderLevel": 60,
+          "avgDailyUse": 6.1
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 53,
+          "reorderLevel": 60,
+          "avgDailyUse": 6.1
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 88,
+          "reorderLevel": 35,
+          "avgDailyUse": 3.5
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 158,
+          "reorderLevel": 106,
+          "avgDailyUse": 10.6
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 0,
+          "reorderLevel": 138,
+          "avgDailyUse": 13.9
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 247,
+          "reorderLevel": 109,
+          "avgDailyUse": 10.9
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 120,
+          "reorderLevel": 63,
+          "avgDailyUse": 6.4
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 20,
+          "reorderLevel": 17,
+          "avgDailyUse": 1.7
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 19,
+          "reorderLevel": 214,
+          "avgDailyUse": 21.4
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 90,
+          "reorderLevel": 65,
+          "avgDailyUse": 6.5
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 51,
+          "reorderLevel": 23,
+          "avgDailyUse": 2.4
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 52,
+          "reorderLevel": 86,
+          "avgDailyUse": 8.6
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 146,
+          "reorderLevel": 111,
+          "avgDailyUse": 11.1
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 90,
+          "reorderLevel": 63,
+          "avgDailyUse": 6.4
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 266,
+          "reorderLevel": 162,
+          "avgDailyUse": 16.2
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 92,
+          "reorderLevel": 131,
+          "avgDailyUse": 13.1
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 182,
+          "reorderLevel": 135,
+          "avgDailyUse": 13.5
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 231,
+          "reorderLevel": 125,
+          "avgDailyUse": 12.6
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 205,
+          "reorderLevel": 117,
+          "avgDailyUse": 11.7
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 0,
+          "reorderLevel": 182,
+          "avgDailyUse": 18.2
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 307,
+          "reorderLevel": 175,
+          "avgDailyUse": 17.6
+        }
+      }
+    },
+    "PHC-005": {
+      "name": "Pallipattu",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 25693,
+          "reorderLevel": 177,
+          "avgDailyUse": 17.8
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 7540,
+          "reorderLevel": 50,
+          "avgDailyUse": 5.1
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 25786,
+          "reorderLevel": 179,
+          "avgDailyUse": 17.9
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 8325,
+          "reorderLevel": 63,
+          "avgDailyUse": 6.4
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 11302,
+          "reorderLevel": 84,
+          "avgDailyUse": 8.4
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 9319,
+          "reorderLevel": 68,
+          "avgDailyUse": 6.9
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 11818,
+          "reorderLevel": 80,
+          "avgDailyUse": 8.0
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 12531,
+          "reorderLevel": 91,
+          "avgDailyUse": 9.1
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 26623,
+          "reorderLevel": 204,
+          "avgDailyUse": 20.4
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 8166,
+          "reorderLevel": 52,
+          "avgDailyUse": 5.2
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 4337,
+          "reorderLevel": 29,
+          "avgDailyUse": 2.9
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 20411,
+          "reorderLevel": 131,
+          "avgDailyUse": 13.1
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 12353,
+          "reorderLevel": 90,
+          "avgDailyUse": 9.0
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 4275,
+          "reorderLevel": 32,
+          "avgDailyUse": 3.2
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 11588,
+          "reorderLevel": 79,
+          "avgDailyUse": 7.9
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 17110,
+          "reorderLevel": 124,
+          "avgDailyUse": 12.4
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 19648,
+          "reorderLevel": 140,
+          "avgDailyUse": 14.0
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 17971,
+          "reorderLevel": 130,
+          "avgDailyUse": 13.0
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 15414,
+          "reorderLevel": 113,
+          "avgDailyUse": 11.4
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 18264,
+          "reorderLevel": 144,
+          "avgDailyUse": 14.4
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 12358,
+          "reorderLevel": 89,
+          "avgDailyUse": 8.9
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 10570,
+          "reorderLevel": 75,
+          "avgDailyUse": 7.6
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 15016,
+          "reorderLevel": 111,
+          "avgDailyUse": 11.1
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 16553,
+          "reorderLevel": 112,
+          "avgDailyUse": 11.3
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 20600,
+          "reorderLevel": 148,
+          "avgDailyUse": 14.9
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 5911,
+          "reorderLevel": 42,
+          "avgDailyUse": 4.2
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 18024,
+          "reorderLevel": 130,
+          "avgDailyUse": 13.0
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 6324,
+          "reorderLevel": 52,
+          "avgDailyUse": 5.2
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 16786,
+          "reorderLevel": 123,
+          "avgDailyUse": 12.4
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 14651,
+          "reorderLevel": 166,
+          "avgDailyUse": 16.6
+        }
+      }
+    },
+    "PHC-006": {
+      "name": "Tiruttani",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 13119,
+          "reorderLevel": 204,
+          "avgDailyUse": 20.4
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 5883,
+          "reorderLevel": 88,
+          "avgDailyUse": 8.9
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 16612,
+          "reorderLevel": 255,
+          "avgDailyUse": 25.6
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 13592,
+          "reorderLevel": 230,
+          "avgDailyUse": 23.0
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 9733,
+          "reorderLevel": 147,
+          "avgDailyUse": 14.8
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 9349,
+          "reorderLevel": 138,
+          "avgDailyUse": 13.9
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 10553,
+          "reorderLevel": 172,
+          "avgDailyUse": 17.3
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 17500,
+          "reorderLevel": 269,
+          "avgDailyUse": 26.9
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 14510,
+          "reorderLevel": 242,
+          "avgDailyUse": 24.3
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 16000,
+          "reorderLevel": 225,
+          "avgDailyUse": 22.5
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 14141,
+          "reorderLevel": 207,
+          "avgDailyUse": 20.7
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 13959,
+          "reorderLevel": 185,
+          "avgDailyUse": 18.6
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 13328,
+          "reorderLevel": 210,
+          "avgDailyUse": 21.1
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 5808,
+          "reorderLevel": 83,
+          "avgDailyUse": 8.4
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 5154,
+          "reorderLevel": 82,
+          "avgDailyUse": 8.3
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 2943,
+          "reorderLevel": 47,
+          "avgDailyUse": 4.8
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 11873,
+          "reorderLevel": 180,
+          "avgDailyUse": 18.0
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 7343,
+          "reorderLevel": 123,
+          "avgDailyUse": 12.4
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 7654,
+          "reorderLevel": 118,
+          "avgDailyUse": 11.9
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 7699,
+          "reorderLevel": 111,
+          "avgDailyUse": 11.1
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 13753,
+          "reorderLevel": 222,
+          "avgDailyUse": 22.3
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 9867,
+          "reorderLevel": 148,
+          "avgDailyUse": 14.9
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 13792,
+          "reorderLevel": 235,
+          "avgDailyUse": 23.6
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 10408,
+          "reorderLevel": 166,
+          "avgDailyUse": 16.6
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 17246,
+          "reorderLevel": 255,
+          "avgDailyUse": 25.5
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 8231,
+          "reorderLevel": 142,
+          "avgDailyUse": 14.2
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 11382,
+          "reorderLevel": 175,
+          "avgDailyUse": 17.5
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 13412,
+          "reorderLevel": 212,
+          "avgDailyUse": 21.3
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 9305,
+          "reorderLevel": 145,
+          "avgDailyUse": 14.6
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 10416,
+          "reorderLevel": 314,
+          "avgDailyUse": 31.4
+        }
+      }
+    },
+    "PHC-007": {
+      "name": "R.K. Pet",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 340,
+          "reorderLevel": 126,
+          "avgDailyUse": 12.6
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 126,
+          "reorderLevel": 42,
+          "avgDailyUse": 4.2
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 386,
+          "reorderLevel": 131,
+          "avgDailyUse": 13.1
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 366,
+          "reorderLevel": 117,
+          "avgDailyUse": 11.8
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 244,
+          "reorderLevel": 130,
+          "avgDailyUse": 13.1
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 92,
+          "reorderLevel": 33,
+          "avgDailyUse": 3.4
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 161,
+          "reorderLevel": 77,
+          "avgDailyUse": 7.8
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 108,
+          "reorderLevel": 42,
+          "avgDailyUse": 4.2
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 152,
+          "reorderLevel": 79,
+          "avgDailyUse": 7.9
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 347,
+          "reorderLevel": 78,
+          "avgDailyUse": 7.9
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 308,
+          "reorderLevel": 142,
+          "avgDailyUse": 14.3
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 219,
+          "reorderLevel": 78,
+          "avgDailyUse": 7.9
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 251,
+          "reorderLevel": 162,
+          "avgDailyUse": 16.3
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 138,
+          "reorderLevel": 199,
+          "avgDailyUse": 19.9
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 78,
+          "reorderLevel": 47,
+          "avgDailyUse": 4.8
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 149,
+          "reorderLevel": 140,
+          "avgDailyUse": 14.0
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 402,
+          "reorderLevel": 113,
+          "avgDailyUse": 11.4
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 459,
+          "reorderLevel": 145,
+          "avgDailyUse": 14.5
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 111,
+          "reorderLevel": 47,
+          "avgDailyUse": 4.7
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 250,
+          "reorderLevel": 163,
+          "avgDailyUse": 16.4
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 341,
+          "reorderLevel": 222,
+          "avgDailyUse": 22.2
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 498,
+          "reorderLevel": 158,
+          "avgDailyUse": 15.9
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 340,
+          "reorderLevel": 151,
+          "avgDailyUse": 15.1
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 425,
+          "reorderLevel": 120,
+          "avgDailyUse": 12.0
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 445,
+          "reorderLevel": 238,
+          "avgDailyUse": 23.9
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 187,
+          "reorderLevel": 130,
+          "avgDailyUse": 13.1
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 324,
+          "reorderLevel": 176,
+          "avgDailyUse": 17.6
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 477,
+          "reorderLevel": 150,
+          "avgDailyUse": 15.1
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 267,
+          "reorderLevel": 132,
+          "avgDailyUse": 13.2
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 233,
+          "reorderLevel": 300,
+          "avgDailyUse": 30.0
+        }
+      }
+    },
+    "PHC-008": {
+      "name": "Sholinghar",
+      "district": "Thiruvallur",
+      "medicines": {
+        "Paracetamol_500mg": {
+          "medicine": "Paracetamol",
+          "strength": "500mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 70,
+          "reorderLevel": 284,
+          "avgDailyUse": 28.4
+        },
+        "Diclofenac_50mg": {
+          "medicine": "Diclofenac",
+          "strength": "50mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 66,
+          "reorderLevel": 73,
+          "avgDailyUse": 7.4
+        },
+        "Ibuprofen_400mg": {
+          "medicine": "Ibuprofen",
+          "strength": "400mg",
+          "category": "Analgesic-Antipyretic",
+          "stock": 21,
+          "reorderLevel": 231,
+          "avgDailyUse": 23.1
+        },
+        "Amoxicillin_500mg": {
+          "medicine": "Amoxicillin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 528,
+          "reorderLevel": 130,
+          "avgDailyUse": 13.0
+        },
+        "Azithromycin_500mg": {
+          "medicine": "Azithromycin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 0,
+          "reorderLevel": 80,
+          "avgDailyUse": 8.1
+        },
+        "Ciprofloxacin_500mg": {
+          "medicine": "Ciprofloxacin",
+          "strength": "500mg",
+          "category": "Antibiotic",
+          "stock": 0,
+          "reorderLevel": 174,
+          "avgDailyUse": 17.4
+        },
+        "Doxycycline_100mg": {
+          "medicine": "Doxycycline",
+          "strength": "100mg",
+          "category": "Antibiotic",
+          "stock": 358,
+          "reorderLevel": 125,
+          "avgDailyUse": 12.6
+        },
+        "Cefixime_200mg": {
+          "medicine": "Cefixime",
+          "strength": "200mg",
+          "category": "Antibiotic",
+          "stock": 28,
+          "reorderLevel": 62,
+          "avgDailyUse": 6.2
+        },
+        "Metronidazole_400mg": {
+          "medicine": "Metronidazole",
+          "strength": "400mg",
+          "category": "Antibiotic",
+          "stock": 114,
+          "reorderLevel": 202,
+          "avgDailyUse": 20.3
+        },
+        "ORS_Low-Osmolarity": {
+          "medicine": "ORS",
+          "strength": "Low-Osmolarity",
+          "category": "Rehydration",
+          "stock": 238,
+          "reorderLevel": 130,
+          "avgDailyUse": 13.1
+        },
+        "Zinc-Sulphate_20mg": {
+          "medicine": "Zinc Sulphate",
+          "strength": "20mg",
+          "category": "Rehydration",
+          "stock": 101,
+          "reorderLevel": 51,
+          "avgDailyUse": 5.1
+        },
+        "Ondansetron_4mg": {
+          "medicine": "Ondansetron",
+          "strength": "4mg",
+          "category": "Antiemetic",
+          "stock": 48,
+          "reorderLevel": 107,
+          "avgDailyUse": 10.8
+        },
+        "Ranitidine_150mg": {
+          "medicine": "Ranitidine",
+          "strength": "150mg",
+          "category": "Gastrointestinal",
+          "stock": 164,
+          "reorderLevel": 149,
+          "avgDailyUse": 14.9
+        },
+        "Omeprazole_20mg": {
+          "medicine": "Omeprazole",
+          "strength": "20mg",
+          "category": "Gastrointestinal",
+          "stock": 0,
+          "reorderLevel": 107,
+          "avgDailyUse": 10.8
+        },
+        "Metformin_500mg": {
+          "medicine": "Metformin",
+          "strength": "500mg",
+          "category": "Endocrine",
+          "stock": 208,
+          "reorderLevel": 70,
+          "avgDailyUse": 7.1
+        },
+        "Glibenclamide_5mg": {
+          "medicine": "Glibenclamide",
+          "strength": "5mg",
+          "category": "Endocrine",
+          "stock": 204,
+          "reorderLevel": 63,
+          "avgDailyUse": 6.4
+        },
+        "Insulin-(Soluble)_100IU-ml": {
+          "medicine": "Insulin (Soluble)",
+          "strength": "100IU/ml",
+          "category": "Endocrine",
+          "stock": 0,
+          "reorderLevel": 47,
+          "avgDailyUse": 4.8
+        },
+        "Amlodipine_5mg": {
+          "medicine": "Amlodipine",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 84,
+          "reorderLevel": 186,
+          "avgDailyUse": 18.6
+        },
+        "Atenolol_50mg": {
+          "medicine": "Atenolol",
+          "strength": "50mg",
+          "category": "Cardiovascular",
+          "stock": 336,
+          "reorderLevel": 157,
+          "avgDailyUse": 15.8
+        },
+        "Enalapril_5mg": {
+          "medicine": "Enalapril",
+          "strength": "5mg",
+          "category": "Cardiovascular",
+          "stock": 0,
+          "reorderLevel": 110,
+          "avgDailyUse": 11.1
+        },
+        "Frusemide_40mg": {
+          "medicine": "Frusemide",
+          "strength": "40mg",
+          "category": "Cardiovascular",
+          "stock": 0,
+          "reorderLevel": 30,
+          "avgDailyUse": 3.1
+        },
+        "Salbutamol_100mcg": {
+          "medicine": "Salbutamol",
+          "strength": "100mcg",
+          "category": "Respiratory",
+          "stock": 2,
+          "reorderLevel": 52,
+          "avgDailyUse": 5.2
+        },
+        "Salbutamol_4mg": {
+          "medicine": "Salbutamol",
+          "strength": "4mg",
+          "category": "Respiratory",
+          "stock": 41,
+          "reorderLevel": 227,
+          "avgDailyUse": 22.7
+        },
+        "Prednisolone_5mg": {
+          "medicine": "Prednisolone",
+          "strength": "5mg",
+          "category": "Respiratory",
+          "stock": 0,
+          "reorderLevel": 52,
+          "avgDailyUse": 5.3
+        },
+        "Chlorpheniramine_4mg": {
+          "medicine": "Chlorpheniramine",
+          "strength": "4mg",
+          "category": "Antihistamine",
+          "stock": 218,
+          "reorderLevel": 160,
+          "avgDailyUse": 16.0
+        },
+        "Cetirizine_10mg": {
+          "medicine": "Cetirizine",
+          "strength": "10mg",
+          "category": "Antihistamine",
+          "stock": 34,
+          "reorderLevel": 310,
+          "avgDailyUse": 31.0
+        },
+        "Ferrous-Sulphate_60mg": {
+          "medicine": "Ferrous Sulphate",
+          "strength": "60mg",
+          "category": "Haematinic",
+          "stock": 31,
+          "reorderLevel": 66,
+          "avgDailyUse": 6.6
+        },
+        "Folic-Acid_0-4mg": {
+          "medicine": "Folic Acid",
+          "strength": "0.4mg",
+          "category": "Haematinic",
+          "stock": 74,
+          "reorderLevel": 47,
+          "avgDailyUse": 4.8
+        },
+        "Vitamin-A_200kIU": {
+          "medicine": "Vitamin A",
+          "strength": "200kIU",
+          "category": "Vitamin",
+          "stock": 0,
+          "reorderLevel": 47,
+          "avgDailyUse": 4.7
+        },
+        "Artemether-Lumefantrine_20-120mg": {
+          "medicine": "Artemether-Lumefantrine",
+          "strength": "20/120mg",
+          "category": "Antimalarial",
+          "stock": 109,
+          "reorderLevel": 84,
+          "avgDailyUse": 8.4
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "inventory": {
+      "$phcId": {
+        ".validate": "newData.hasChildren(['name', 'district', 'medicines'])"
+      }
+    },
+    "transactions": {
+      "$phcId": {
+        "$txId": {
+          ".validate": "newData.hasChildren(['medicine', 'type', 'quantity', 'timestamp'])",
+          "type": {
+            ".validate": "newData.isString() && newData.val().match(/^(dispense|restock|stockout|adjust)$/) !== null"
+          },
+          "quantity": {
+            ".validate": "newData.isNumber() && newData.val() >= 0"
+          }
+        }
+      }
+    },
+    "riskScores": {
+      "$phcId": {
+        "$medKey": {
+          ".validate": "newData.hasChildren(['risk', 'daysOfCover', 'updatedAt'])",
+          "risk": {
+            ".validate": "newData.isNumber() && newData.val() >= 0 && newData.val() <= 100"
+          }
+        }
+      }
+    },
+    "recommendations": {
+      "$recId": {
+        ".validate": "newData.hasChildren(['medicine', 'fromPhc', 'toPhc', 'quantity', 'status'])"
+      }
+    },
+    "alertLog": {
+      "$alertId": {
+        ".validate": "newData.hasChildren(['channel', 'message', 'sentAt'])"
+      }
+    }
+  },
+  "indexes": {
+    "transactions": {
+      ".indexOn": ["timestamp"]
+    },
+    "recommendations": {
+      ".indexOn": ["status", "createdAt"]
+    }
+  }
+}

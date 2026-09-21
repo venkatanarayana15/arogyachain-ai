@@ -1,0 +1,19 @@
+{
+  "name": "arogyachain-functions",
+  "description": "ArogyaChain AI - risk scoring, redistribution, alerts, voice parsing",
+  "version": "1.0.0",
+  "main": "index.js",
+  "engines": {
+    "node": "20"
+  },
+  "scripts": {
+    "serve": "firebase emulators:start --only functions,database",
+    "logs": "firebase functions:log"
+  },
+  "dependencies": {
+    "firebase-admin": "^12.6.0",
+    "firebase-functions": "^4.9.0",
+    "google-auth-library": "^9.14.0",
+    "googleapis": "^144.0.0"
+  }
+}
