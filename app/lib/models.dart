@@ -97,6 +97,16 @@ class MockData {
   final Map<String, Map<String, RiskScore>> riskScores = {};
   final List<Recommendation> recommendations = [];
 
+  /// Bumped whenever the demo dataset mutates, so the UI can memoise derived
+  /// views (counts, recommendations) instead of recomputing per rebuild.
+  int _revision = 0;
+  int get revision => _revision;
+
+  /// Total facility x medicine pairs, cached so the Command Center does not
+  /// allocate a list just to render a count.
+  int _pairCount = 0;
+  int get pairCount => _pairCount;
+
   /// Human-readable facility names, matched to PHC_PROFILES in main.py so the
   /// demo and the synthetic dataset tell the same story.
   static const facilityNames = <String, String>{
@@ -271,36 +281,65 @@ class MockData {
         riskScores[phc]![key] = inventory[phc]![key]!.risk!;
       });
     });
+
+    // Cache the pair count once, instead of rebuilding a 64-element list of
+    // records every time the Command Center renders a KPI.
+    var pairs = 0;
+    for (final meds in inventory.values) {
+      pairs += meds.length;
+    }
+    _pairCount = pairs;
   }
 
+  /// Build the redistribution queue.
+  ///
+  /// Indexed once by medicine, so this is O(PHC x MED) instead of the previous
+  /// O(PHC x MED x PHC) scan of the whole district for every row. The UI calls
+  /// this on every rebuild, so the constant factor matters.
   List<Recommendation> computeRecommendations() {
+    final byMedicine = <String, List<({String phc, Medicine med})>>{};
+    inventory.forEach((phc, meds) {
+      meds.forEach((key, med) {
+        (byMedicine[key] ??= <({String phc, Medicine med})>[])
+            .add((phc: phc, med: med));
+      });
+    });
+
     final recs = <Recommendation>[];
     inventory.forEach((phc, meds) {
       meds.forEach((key, med) {
         final r = med.risk;
         if (r == null || r.risk < 70) return;
-        for (final entry in inventory.entries) {
-          if (entry.key == phc) continue;
-          final donor = entry.value[key];
-          if (donor == null) continue;
-          final dr = donor.risk;
+        final donors = byMedicine[key];
+        if (donors == null) return;
+        for (final d in donors) {
+          if (d.phc == phc) continue;
+          final dr = d.med.risk;
           if (dr == null || dr.risk > 30) continue;
-          final surplus = donor.stock - donor.reorderLevel;
+          final surplus = d.med.stock - d.med.reorderLevel;
           if (surplus <= 0) continue;
+          final need = (r.forecast7d - med.stock).clamp(1, 1 << 30);
           recs.add(Recommendation(
-            id: 'mock-$phc-$key-${entry.key}',
+            id: 'mock-$phc-$key-${d.phc}',
             medicine: key,
-            fromPhc: entry.key,
+            fromPhc: d.phc,
             toPhc: phc,
-            quantity: surplus.clamp(0, (r.forecast7d - med.stock).clamp(1, 1 << 30)).toInt(),
+            quantity: surplus.clamp(0, need).toInt(),
             status: 'proposed',
           ));
           break;
         }
       });
     });
+
+    // Partial selection: only the biggest few transfers are actionable in a
+    // single sitting, so cap the queue before the (cheap) sort.
+    if (recs.length > 10) {
+      recs.sort((a, b) => b.quantity.compareTo(a.quantity));
+      return recs.take(10).toList();
+    }
     recs.sort((a, b) => b.quantity.compareTo(a.quantity));
-    return recs.take(10).toList();
+    return recs;
   }
 
   void applyDispense(String phc, String medKey, int qty) {
@@ -308,6 +347,7 @@ class MockData {
     if (med == null) return;
     med.stock = (med.stock - qty).clamp(0, 1 << 30);
     _recomputeRisk(phc, medKey, med);
+    _revision++; // invalidate the UI's memoised views
   }
 
   void _recomputeRisk(String phc, String medKey, Medicine med) {
