@@ -1,4 +1,4 @@
-// main.dart — ArogyaChain AI
+// main.dart ï¿½ ArogyaChain AI
 //
 // Product shell with four views:
 //   Command Center  district-wide risk + approval queue (District Health Officer)
@@ -79,6 +79,10 @@ class StockBackend {
   StockBackend({required bool demo}) : _demo = demo;
 
   final stt.SpeechToText _speech = stt.SpeechToText();
+
+  /// Public accessor: FacilityView needs the SpeechToText instance to call
+  /// listen(). Kept private to the backend so callers cannot swap it out.
+  stt.SpeechToText get speech => _speech;
 
   // live mode streams
   Stream<DatabaseEvent>? _invStream;
@@ -340,7 +344,7 @@ class _WorkspaceState extends State<Workspace> {
     if (demoMode) {
       MockData.instance.applyDispense(phcId, medKey, qty);
       setState(() => lastStatus =
-          '$phcId: -$qty ${Medicine.prettyKey(medKey)} · demo sync ?');
+          '$phcId: -$qty ${Medicine.prettyKey(medKey!)} ï¿½ demo sync ?');
     } else {
       await backend.pushTransaction(phcId, {
         'medicine': medKey,
@@ -349,7 +353,7 @@ class _WorkspaceState extends State<Workspace> {
         'timestamp': ServerValue.timestamp,
       });
       setState(() => lastStatus =
-          '$phcId: -$qty ${Medicine.prettyKey(medKey)} ? queued to Firebase ?');
+          '$phcId: -$qty ${Medicine.prettyKey(medKey!)} ? queued to Firebase ?');
     }
   }
 
@@ -400,7 +404,7 @@ class _WorkspaceState extends State<Workspace> {
               padding: EdgeInsets.fromLTRB(Gap.lg, 0, Gap.lg, Gap.md),
               child: ViewHeader(
                 title: 'Select facility',
-                subtitle: 'Thiruvallur district · 8 Primary Health Centres',
+                subtitle: 'Thiruvallur district ï¿½ 8 Primary Health Centres',
               ),
             ),
             Flexible(
@@ -416,7 +420,7 @@ class _WorkspaceState extends State<Workspace> {
                     title: Text(data.nameOf(phc), style: AppText.body),
                     subtitle:
                         Text('${meds.length} medicine pairs', style: AppText.caption),
-                    trailing: StatusPill.severity(MaxRisk.of(meds), dense: true),
+                    trailing: StatusPill.severity(MaxRisk.of(data.inventory[phc]!), dense: true),
                     selected: phc == phcId,
                     onTap: () {
                       Navigator.pop(ctx);
@@ -472,7 +476,7 @@ class _WorkspaceState extends State<Workspace> {
       view: view,
       onView: (v) => setState(() => view = v),
       body: body,
-      facilityLabel: '$phcId · ${data.nameOf(phcId)}',
+      facilityLabel: '$phcId ï¿½ ${data.nameOf(phcId)}',
       demoMode: demoMode,
       onFacilitySwitch: _switcher,
       actions: [
