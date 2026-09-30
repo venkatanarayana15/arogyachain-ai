@@ -1,23 +1,32 @@
-// main.dart — ArogyaChain AI (Day 2+3+7 combined build)
-// Voice-first inventory app: Firebase RTDB live mode with a full demo-mode
-// fallback so the hackathon video never depends on network or billing.
+// main.dart � ArogyaChain AI
 //
-// Demo story (matches plan.md §5): PHC-001 is starved, PHC-005 is overstocked,
-// voice-dispense 50 Paracetamol → risk spikes → transfer recommendation appears.
+// Product shell with four views:
+//   Command Center  district-wide risk + approval queue (District Health Officer)
+//   Facility        voice capture + medicine table (PHC pharmacist)
+//   Transfers       bulk approval workflow + execution log
+//   Evidence        model validation + disclosed limits
+//
+// Live mode uses Firebase RTDB; demo mode uses MockData with the identical
+// read/write contract, so the recorded demo never depends on network or billing.
 
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:intl/intl.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:speech_to_text/speech_to_text.dart' as stt;
 
 import 'models.dart';
+import 'shell.dart';
+import 'theme.dart';
+import 'views/command_center.dart';
+import 'views/evidence_view.dart';
+import 'views/facility_view.dart';
+import 'views/transfers_view.dart';
 
-void main() async {
+void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const ArogyaChainApp());
 }
@@ -26,21 +35,13 @@ class ArogyaChainApp extends StatelessWidget {
   const ArogyaChainApp({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'ArogyaChain AI',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF0B6E4F)),
-        useMaterial3: true,
-        fontFamily: 'Roboto',
-      ),
-      home: const DashboardPage(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'ArogyaChain AI',
+        debugShowCheckedModeBanner: false,
+        theme: buildAppTheme(),
+        home: const Workspace(),
+      );
 }
-
-// ---------------------------------------------------------------------------
 // Backend abstraction: live RTDB or mock (demo mode)
 // ---------------------------------------------------------------------------
 
@@ -212,40 +213,39 @@ ParsedCommand parseLocal(String text) {
 // Dashboard
 // ---------------------------------------------------------------------------
 
-class DashboardPage extends StatefulWidget {
-  const DashboardPage({super.key});
+
+// ---------------------------------------------------------------------------
+// Workspace: owns state, routes views
+// ---------------------------------------------------------------------------
+
+class Workspace extends StatefulWidget {
+  const Workspace({super.key});
+
   @override
-  State<DashboardPage> createState() => _DashboardPageState();
+  State<Workspace> createState() => _WorkspaceState();
 }
 
-class _DashboardPageState extends State<DashboardPage> {
+class _WorkspaceState extends State<Workspace> {
   late StockBackend backend;
   bool demoMode = true;
   bool ready = false;
   String phcId = 'PHC-001';
+  // Land on Facility: that is the pharmacist's screen and the demo story
+  // (voice -> risk spike -> transfer) starts there.
+  AppView view = AppView.facility;
 
-  // state
-  Map<String, Map<String, dynamic>> inventory = {}; // phc -> medKey -> data
+  Map<String, Map<String, dynamic>> inventory = {};
   Map<String, Map<String, dynamic>> riskScores = {};
   StreamSubscription? invSub;
   StreamSubscription? riskSub;
 
-  // voice
-  bool listening = false;
-  String lastHeard = '';
+  final List<String> approved = [];
   String lastStatus = '';
-  final TextEditingController _manualController = TextEditingController();
-
-  final List<String> phcList = const [
-    'PHC-001', 'PHC-002', 'PHC-003', 'PHC-004',
-    'PHC-005', 'PHC-006', 'PHC-007', 'PHC-008'
-  ];
 
   @override
   void initState() {
     super.initState();
-    // Demo unless firebase-options provided; on failure we fall back silently.
-    // Override the default without touching code:
+    // Default to demo so the video never blocks on billing. Attempt live with:
     //   flutter run -d chrome --dart-define=DEMO=false
     const forceDemo = bool.fromEnvironment('DEMO', defaultValue: true);
     backend = StockBackend(demo: forceDemo);
@@ -253,7 +253,6 @@ class _DashboardPageState extends State<DashboardPage> {
   }
 
   Future<void> _boot() async {
-    // Try live Firebase if firebase_options.dart is generated (Day 1 step 2).
     final live = await backend.checkFirebase();
     if (!mounted) return;
     setState(() {
@@ -286,54 +285,32 @@ class _DashboardPageState extends State<DashboardPage> {
   void dispose() {
     invSub?.cancel();
     riskSub?.cancel();
-    _manualController.dispose();
     super.dispose();
   }
 
-  Future<void> _submitManual() async {
-    final text = _manualController.text.trim();
-    if (text.isEmpty) return;
-    await _handleUtterance(text);
-    _manualController.clear();
+  List<Recommendation> get _recs => MockData.instance.computeRecommendations();
+
+  int get _critical {
+    var n = 0;
+    for (final r in MockData.instance.allRows()) {
+      if ((r.med.risk?.risk ?? 0) >= 80) n++;
+    }
+    return n;
   }
 
-  // ----------------------------- voice -------------------------------------
-
-  Future<void> _toggleVoice() async {
-    if (listening) {
-      await backend._speech.stop();
-      setState(() => listening = false);
-      return;
+  int get _watch {
+    var n = 0;
+    for (final r in MockData.instance.allRows()) {
+      final v = r.med.risk?.risk ?? 0;
+      if (v >= 30 && v < 80) n++;
     }
-    bool ok = false;
-    try {
-      ok = await backend.initSpeech();
-    } catch (_) {
-      ok = false; // plugin unavailable (desktop/test env) → manual entry remains
-    }
-    if (!ok) {
-      _toast('Speech recognition unavailable on this device.');
-      return;
-    }
-    setState(() => listening = true);
-    backend._speech.listen(
-      listenOptions: stt.SpeechListenOptions(
-        partialResults: true,
-        localeId: 'ta_IN', // switch to 'hi_IN' / 'en_IN' per worker
-      ),
-      onResult: (r) async {
-        setState(() => lastHeard = r.recognizedWords);
-        if (r.finalResult && r.recognizedWords.trim().isNotEmpty) {
-          setState(() => listening = false);
-          await _handleUtterance(r.recognizedWords.trim());
-        }
-      },
-    );
+    return n;
   }
 
-  Future<void> _handleUtterance(String text) async {
+  Future<void> _handle(String text) async {
     setState(() => lastStatus = 'Heard: "$text"');
-    // 1) try Gemini-backed Cloud Function (live mode only)
+
+    // 1) Gemini-backed Cloud Function (live mode only)
     Map<String, dynamic>? remote;
     try {
       remote = await backend.parseVoiceRemote(text, phcId).timeout(
@@ -347,7 +324,7 @@ class _DashboardPageState extends State<DashboardPage> {
       medKey = remote['medicineKey'] as String?;
       qty = (remote['quantity'] as num?)?.toInt();
     }
-    // 2) local regex fallback
+    // 2) local regex fallback (mirrors functions/lib/voiceParser.js)
     if (medKey == null || qty == null) {
       final p = parseLocal(text);
       if (p.medicineKey != null && p.quantity != null) {
@@ -359,13 +336,11 @@ class _DashboardPageState extends State<DashboardPage> {
       _toast('Could not parse. Use manual entry below.');
       return;
     }
-    await _applyDispense(medKey, qty);
-  }
 
-  Future<void> _applyDispense(String medKey, int qty) async {
     if (demoMode) {
       MockData.instance.applyDispense(phcId, medKey, qty);
-      setState(() => lastStatus = '$phcId: -$qty ${medKey.replaceAll('_', ' ')} (demo sync ✓)');
+      setState(() => lastStatus =
+          '$phcId: -$qty ${Medicine.prettyKey(medKey)} � demo sync ?');
     } else {
       await backend.pushTransaction(phcId, {
         'medicine': medKey,
@@ -373,269 +348,160 @@ class _DashboardPageState extends State<DashboardPage> {
         'quantity': qty,
         'timestamp': ServerValue.timestamp,
       });
-      setState(() => lastStatus = '$phcId: -$qty ${medKey.replaceAll('_', ' ')} → queued to Firebase ✓');
+      setState(() => lastStatus =
+          '$phcId: -$qty ${Medicine.prettyKey(medKey)} ? queued to Firebase ?');
     }
   }
 
-  void _toast(String msg) {
-    if (!mounted) return;
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(msg)));
-  }
-
-  // --------------------------- derived data ---------------------------------
-
-  List<MapEntry<String, RiskEntry>> get riskRows {
+  void _approve(Recommendation rec) {
     if (demoMode) {
-      return MockData.instance.riskScores[phcId]?.entries.map((e) {
-            final r = e.value;
-            return MapEntry(
-              e.key,
-              RiskEntry(
-                risk: r.risk,
-                daysOfCover: r.daysOfCover,
-                forecast7d: r.forecast7d,
-                source: r.source,
-                updatedAtMs: r.updatedAtMs,
-              ),
-            );
-          }).toList() ??
-          [];
+      MockData.instance.applyDispense(rec.fromPhc, rec.medicine, rec.quantity);
+      MockData.instance.applyDispense(rec.toPhc, rec.medicine, -rec.quantity);
+    } else {
+      backend.executeTransfer(rec.id);
     }
-    final phc = riskScores[phcId];
-    if (phc == null) return [];
-    return phc.entries.map((e) {
-      final r = RiskEntry.fromMap(e.value);
-      return r == null ? null : MapEntry(e.key, r);
-    }).whereType<MapEntry<String, RiskEntry>>().toList();
+    setState(() => approved.add(rec.id));
+    _toast('Transfer approved ?');
   }
 
-  List<Recommendation> get recommendations =>
-      demoMode ? MockData.instance.computeRecommendations() : [];
-
-  void sortRisk() {
-    riskRows.sort((a, b) => b.value.risk.compareTo(a.value.risk));
+  void _approveMany(List<Recommendation> recs) {
+    for (final r in recs) {
+      if (demoMode) {
+        MockData.instance.applyDispense(r.fromPhc, r.medicine, r.quantity);
+        MockData.instance.applyDispense(r.toPhc, r.medicine, -r.quantity);
+      } else {
+        backend.executeTransfer(r.id);
+      }
+    }
+    setState(() => approved.addAll(recs.map((r) => r.id)));
+    _toast('${recs.length} transfers approved ?');
   }
 
-  // ------------------------------- UI ---------------------------------------
+  void _toast(String m) {
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(m)));
+  }
+
+  void _openFacility(String phc) => setState(() {
+        phcId = phc;
+        view = AppView.facility;
+      });
+
+  void _switcher() {
+    final data = MockData.instance;
+    showModalBottomSheet<void>(
+      context: context,
+      showDragHandle: true,
+      builder: (ctx) => SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Padding(
+              padding: EdgeInsets.fromLTRB(Gap.lg, 0, Gap.lg, Gap.md),
+              child: ViewHeader(
+                title: 'Select facility',
+                subtitle: 'Thiruvallur district � 8 Primary Health Centres',
+              ),
+            ),
+            Flexible(
+              child: ListView.builder(
+                shrinkWrap: true,
+                itemCount: MockData.roster.length,
+                itemBuilder: (c, i) {
+                  final phc = MockData.roster[i];
+                  final meds = data.inventory[phc]?.values ?? const <Medicine>[];
+                  return ListTile(
+                    leading:
+                        SizedBox(width: 70, child: Text(phc, style: AppText.numeric)),
+                    title: Text(data.nameOf(phc), style: AppText.body),
+                    subtitle:
+                        Text('${meds.length} medicine pairs', style: AppText.caption),
+                    trailing: StatusPill.severity(MaxRisk.of(meds), dense: true),
+                    selected: phc == phcId,
+                    onTap: () {
+                      Navigator.pop(ctx);
+                      _openFacility(phc);
+                    },
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    sortRisk();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('ArogyaChain AI'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        actions: [
-          if (demoMode)
-            const Padding(
-              padding: EdgeInsets.only(right: 12),
-              child: Center(
-                child: Chip(
-                  label: Text('DEMO MODE', style: TextStyle(fontSize: 11)),
-                  visualDensity: VisualDensity.compact,
-                ),
-              ),
-            ),
-        ],
-      ),
-      body: !ready
-          ? const Center(child: CircularProgressIndicator())
-          : ListView(
-              padding: const EdgeInsets.all(12),
-              children: [
-                _phcSelector(),
-                const SizedBox(height: 12),
-                _voiceCard(),
-                const SizedBox(height: 12),
-                const Text('Stock-Out Risk (next 7 days)',
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                const SizedBox(height: 8),
-                ...riskRows.map(_riskCard),
-                if (demoMode) ...[
-                  const SizedBox(height: 12),
-                  _transferCard(),
-                ],
-              ],
-            ),
-    );
-  }
-
-  Widget _phcSelector() => DropdownButtonFormField<String>(
-        initialValue: phcId,
-        decoration: const InputDecoration(
-          labelText: 'Facility',
-          border: OutlineInputBorder(),
-          isDense: true,
+    if (!ready) {
+      return const Scaffold(
+        body: Center(
+          child: SizedBox(
+              width: 26, height: 26, child: CircularProgressIndicator(strokeWidth: 2.5)),
         ),
-        items: phcList
-            .map((p) => DropdownMenuItem(value: p, child: Text(p)))
-            .toList(),
-        onChanged: (v) => setState(() => phcId = v ?? phcId),
       );
+    }
 
-  Widget _voiceCard() => Card(
-        color: Colors.green.shade50,
-        child: Padding(
-          padding: const EdgeInsets.all(12),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(listening ? Icons.mic : Icons.mic_none,
-                      color: listening ? Colors.red : Colors.green),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    child: Text(
-                      listening ? 'Listening… speak now' : 'Tap mic, say e.g. "Paracetamol 50" (தமிழ்/हिंदी/English)',
-                      style: const TextStyle(fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  IconButton.filled(
-                    onPressed: _toggleVoice,
-                    icon: Icon(listening ? Icons.stop : Icons.mic),
-                  ),
-                ],
-              ),
-              if (lastHeard.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: Text('Heard: "$lastHeard"',
-                      style: TextStyle(color: Colors.grey.shade700)),
-                ),
-              if (lastStatus.isNotEmpty)
-                Padding(
-                  padding: const EdgeInsets.only(top: 2),
+    final data = MockData.instance;
+    final body = switch (view) {
+      AppView.command => CommandCenter(
+          data: data,
+          selectedPhc: phcId,
+          onOpenFacility: _openFacility,
+          recommendations: _recs,
+          criticalCount: _critical,
+          watchCount: _watch,
+          onApprove: _approve),
+      AppView.facility => FacilityView(
+          data: data,
+          phc: phcId,
+          initSpeech: backend.initSpeech,
+          speech: backend.speech,
+          onResult: _handle),
+      AppView.transfers => TransfersView(
+          data: data,
+          recommendations: _recs,
+          onApproveOne: _approve,
+          onApproveMany: _approveMany,
+          approvedIds: approved),
+      AppView.evidence => const EvidenceView(),
+    };
+
+    return AppShell(
+      view: view,
+      onView: (v) => setState(() => view = v),
+      body: body,
+      facilityLabel: '$phcId � ${data.nameOf(phcId)}',
+      demoMode: demoMode,
+      onFacilitySwitch: _switcher,
+      actions: [
+        if (lastStatus.isNotEmpty && view == AppView.facility)
+          Tooltip(
+            message: lastStatus,
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 230),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              decoration: BoxDecoration(
+                  color: AppColors.healthyBg,
+                  borderRadius: BorderRadius.circular(6)),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                const Icon(Icons.check_circle,
+                    size: 13, color: AppColors.healthy),
+                const SizedBox(width: 5),
+                Flexible(
                   child: Text(lastStatus,
-                      style: TextStyle(color: Colors.green.shade700, fontSize: 12)),
+                      style: const TextStyle(
+                          fontSize: 11,
+                          color: AppColors.healthy,
+                          height: 1.2),
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis),
                 ),
-              const SizedBox(height: 8),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _manualController,
-                      decoration: const InputDecoration(
-                        hintText: 'Manual entry, e.g. "Paracetamol 50"',
-                        isDense: true,
-                        border: OutlineInputBorder(),
-                      ),
-                      onSubmitted: (_) => _submitManual(),
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  IconButton.filledTonal(
-                    onPressed: _submitManual,
-                    icon: const Icon(Icons.add),
-                    tooltip: 'Add entry',
-                  ),
-                ],
-              ),
-            ],
+              ]),
+            ),
           ),
-        ),
-      );
-
-  Widget _riskCard(MapEntry<String, RiskEntry> e) {
-    final med = e.key;
-    final r = e.value;
-    final Color color = r.risk >= 80
-        ? Colors.red
-        : r.risk >= 50
-            ? Colors.orange
-            : Colors.green;
-    return Card(
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    med.replaceAll('_', ' ').replaceAll('-', ' '),
-                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-                  ),
-                ),
-                Text('${r.risk.round()}%',
-                    style: TextStyle(
-                        color: color, fontWeight: FontWeight.bold, fontSize: 18)),
-              ],
-            ),
-            const SizedBox(height: 6),
-            ClipRRect(
-              borderRadius: BorderRadius.circular(4),
-              child: LinearProgressIndicator(
-                value: r.risk / 100,
-                minHeight: 6,
-                backgroundColor: Colors.grey.shade200,
-                color: color,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              '${r.daysOfCover.toStringAsFixed(1)} days of cover · '
-              '7-day forecast: ${r.forecast7d} units · '
-              'model: ${r.source == 'vertex' ? 'Vertex AI AutoML' : 'on-device ensemble'}',
-              style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
-            ),
-            if (r.daysOfCover < 14)
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Text(
-                  '⚠ Projected stock-out: ${DateFormat('EEE, MMM d').format(DateTime.now().add(Duration(days: r.daysOfCover.ceil())))}',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: r.daysOfCover < 7 ? Colors.red : Colors.orange),
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _transferCard() {
-    final recs = recommendations;
-    if (recs.isEmpty) return const SizedBox.shrink();
-    return Card(
-      color: Colors.blue.shade50,
-      child: Padding(
-        padding: const EdgeInsets.all(12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Recommended Transfers',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-            const SizedBox(height: 8),
-            ...recs.map((rec) => ListTile(
-                  contentPadding: EdgeInsets.zero,
-                  dense: true,
-                  leading: const Icon(Icons.swap_horiz, color: Colors.blue),
-                  title: Text(
-                      'Transfer ${rec.quantity} × ${rec.medicine.replaceAll('_', ' ')}'),
-                  subtitle: Text('${rec.fromPhc} → ${rec.toPhc}'),
-                  trailing: FilledButton(
-                    onPressed: () async {
-                      if (demoMode) {
-                        // move stock out of donor AND into receiver (bugfix:
-                        // receiver stock must increase, not just donor decrease)
-                        MockData.instance.applyDispense(rec.fromPhc, rec.medicine, rec.quantity);
-                        MockData.instance.applyDispense(rec.toPhc, rec.medicine, -rec.quantity);
-                      } else {
-                        await backend.executeTransfer(rec.id);
-                      }
-                      _toast('Transfer approved ✓');
-                      setState(() {});
-                    },
-                    child: const Text('Approve'),
-                  ),
-                )),
-          ],
-        ),
-      ),
+      ],
     );
   }
 }
