@@ -2,7 +2,7 @@
   "holdout_days": 28,
   "series_count": 240,
   "models": {
-    "local-gbm": {
+    "local-ensemble": {
       "mape": 20.93,
       "smape": 19.91,
       "n": 6355
@@ -13,6 +13,6 @@
       "n": 6355
     }
   },
-  "gbm_improvement_over_naive_pct": 16.1,
-  "note": "local-gbm is the on-device fallback (feature-identical port of functions/lib/forecastLocal.js). Vertex AutoML (primary model) is evaluated in-console on the same held-out window."
+  "ensemble_improvement_over_naive_pct": 16.1,
+  "note": "local-ensemble is the on-device fallback (feature-identical port of functions/lib/forecastLocal.js) and is the forecaster the shipped demo actually runs. Vertex AutoML consumes the identical feature contract (data/vertex_training.csv) and is the primary model once an endpoint is configured, but it is NOT included in these numbers - do not quote this file as Vertex validation. Stock-out impact is measured separately by impact_sim.py."
 }

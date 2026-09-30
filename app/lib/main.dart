@@ -66,7 +66,7 @@ class RiskEntry {
       risk: r,
       daysOfCover: (v['daysOfCover'] as num?)?.toDouble() ?? 0,
       forecast7d: (v['forecast7d'] as num?)?.toInt() ?? 0,
-      source: (v['forecastSource'] as String?) ?? 'local-gbm',
+      source: (v['forecastSource'] as String?) ?? 'local-ensemble',
       updatedAtMs: (v['updatedAt'] as num?)?.toInt() ?? 0,
     );
   }
@@ -245,7 +245,10 @@ class _DashboardPageState extends State<DashboardPage> {
   void initState() {
     super.initState();
     // Demo unless firebase-options provided; on failure we fall back silently.
-    backend = StockBackend(demo: true);
+    // Override the default without touching code:
+    //   flutter run -d chrome --dart-define=DEMO=false
+    const forceDemo = bool.fromEnvironment('DEMO', defaultValue: true);
+    backend = StockBackend(demo: forceDemo);
     _boot();
   }
 
@@ -574,7 +577,7 @@ class _DashboardPageState extends State<DashboardPage> {
             Text(
               '${r.daysOfCover.toStringAsFixed(1)} days of cover · '
               '7-day forecast: ${r.forecast7d} units · '
-              'model: ${r.source == 'vertex' ? 'Vertex AI AutoML' : 'on-device GBM'}',
+              'model: ${r.source == 'vertex' ? 'Vertex AI AutoML' : 'on-device ensemble'}',
               style: TextStyle(fontSize: 12, color: Colors.grey.shade700),
             ),
             if (r.daysOfCover < 14)

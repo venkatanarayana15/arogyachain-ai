@@ -29,3 +29,9 @@ key.properties
 # OS
 .DS_Store
 Thumbs.db
+
+# Deck build scratch (dev only — the PDF itself is tracked)
+docs/assets/deck_contact_sheet.png
+
+# Generated during deck QA
+docs/deck_print.html

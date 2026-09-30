@@ -33,7 +33,7 @@ class RiskScore {
   final double risk; // 0-100
   final double daysOfCover;
   final int forecast7d;
-  final String source; // vertex | local-gbm
+  final String source; // vertex | local-ensemble
   final int updatedAtMs;
 
   RiskScore({
@@ -90,31 +90,31 @@ class MockData {
       'PHC-001': {
         'name': 'Thiruvallur Main',
         'meds': {
-          'Paracetamol_500mg': [40, 200, 24.0, 91.0, 1.7, 168, 'local-gbm'],
-          'Amoxicillin_500mg': [10, 150, 18.0, 96.0, 0.6, 120, 'local-gbm'],
-          'ORS_Low-Osmolarity': [600, 100, 12.0, 8.0, 50.0, 95, 'local-gbm'],
-          'Metformin_500mg': [450, 120, 10.0, 22.0, 45.0, 70, 'local-gbm'],
-          'Amlodipine_5mg': [320, 90, 8.0, 18.0, 40.0, 60, 'local-gbm'],
+          'Paracetamol_500mg': [40, 200, 24.0, 91.0, 1.7, 168, 'local-ensemble'],
+          'Amoxicillin_500mg': [10, 150, 18.0, 96.0, 0.6, 120, 'local-ensemble'],
+          'ORS_Low-Osmolarity': [600, 100, 12.0, 8.0, 50.0, 95, 'local-ensemble'],
+          'Metformin_500mg': [450, 120, 10.0, 22.0, 45.0, 70, 'local-ensemble'],
+          'Amlodipine_5mg': [320, 90, 8.0, 18.0, 40.0, 60, 'local-ensemble'],
         },
       },
       'PHC-005': {
         'name': 'Pallipattu',
         'meds': {
-          'Paracetamol_500mg': [900, 150, 10.0, 8.0, 90.0, 88, 'local-gbm'],
-          'Amoxicillin_500mg': [750, 120, 9.0, 6.0, 83.0, 87, 'local-gbm'],
-          'ORS_Low-Osmolarity': [400, 90, 8.0, 15.0, 50.0, 75, 'local-gbm'],
-          'Metformin_500mg': [500, 100, 9.0, 10.0, 55.0, 55, 'local-gbm'],
-          'Amlodipine_5mg': [380, 80, 7.0, 12.0, 47.0, 50, 'local-gbm'],
+          'Paracetamol_500mg': [900, 150, 10.0, 8.0, 90.0, 88, 'local-ensemble'],
+          'Amoxicillin_500mg': [750, 120, 9.0, 6.0, 83.0, 87, 'local-ensemble'],
+          'ORS_Low-Osmolarity': [400, 90, 8.0, 15.0, 50.0, 75, 'local-ensemble'],
+          'Metformin_500mg': [500, 100, 9.0, 10.0, 55.0, 55, 'local-ensemble'],
+          'Amlodipine_5mg': [380, 80, 7.0, 12.0, 47.0, 50, 'local-ensemble'],
         },
       },
       'PHC-007': {
         'name': 'R.K. Pet',
         'meds': {
-          'Paracetamol_500mg': [220, 120, 16.0, 55.0, 13.7, 82, 'local-gbm'],
-          'Amoxicillin_500mg': [180, 100, 14.0, 62.0, 12.8, 75, 'local-gbm'],
-          'ORS_Low-Osmolarity': [150, 80, 10.0, 45.0, 15.0, 65, 'local-gbm'],
-          'Metformin_500mg': [210, 90, 9.0, 30.0, 23.0, 45, 'local-gbm'],
-          'Amlodipine_5mg': [190, 70, 7.0, 25.0, 27.0, 40, 'local-gbm'],
+          'Paracetamol_500mg': [220, 120, 16.0, 55.0, 13.7, 82, 'local-ensemble'],
+          'Amoxicillin_500mg': [180, 100, 14.0, 62.0, 12.8, 75, 'local-ensemble'],
+          'ORS_Low-Osmolarity': [150, 80, 10.0, 45.0, 15.0, 65, 'local-ensemble'],
+          'Metformin_500mg': [210, 90, 9.0, 30.0, 23.0, 45, 'local-ensemble'],
+          'Amlodipine_5mg': [190, 70, 7.0, 25.0, 27.0, 40, 'local-ensemble'],
         },
       },
     };
@@ -198,7 +198,7 @@ class MockData {
       risk: riskVal.clamp(0, 100).toDouble(),
       daysOfCover: newCover,
       forecast7d: total7d.round(),
-      source: r?.source ?? 'local-gbm',
+      source: r?.source ?? 'local-ensemble',
       updatedAtMs: DateTime.now().millisecondsSinceEpoch,
     );
     riskScores[phc]![medKey] = med.risk!;

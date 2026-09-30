@@ -2,7 +2,7 @@
  * forecastLocal.js — Local forecaster (the Vertex fallback that never bills)
  * ==========================================================================
  * Purpose: the demo must NEVER block on Vertex billing/quota/training time.
- * This module reproduces the shape of a gradient-boosted tree forecast using
+ * This module is a weighted ensemble of lag and rolling-mean features. Fixed weights, no model fitting. It matches
  * the same lag features engineered in preprocess_vertex.py (lag_1, lag_7,
  * lag_14, rolling means) plus weekday/seasonal weights learned from the
  * recent history itself.
@@ -34,7 +34,7 @@ function forecastLocal({ recent = [], horizon = 7, seasonHint = 1.0 }) {
       const lag14 = h[h.length - 14] || 0;
       const roll7 = fmean(h.slice(-7));
       const roll3 = fmean(h.slice(-3));
-      // stage weights (acts like shallow GBM ensemble output)
+      // stage weights (a shallow linear ensemble, not a trained tree model)
       pred = 0.35 * lag7 + 0.15 * lag14 + 0.30 * roll7 + 0.20 * roll3;
     } else if (h.length >= 7) {
       pred = 0.5 * (h[h.length - 7] || 0) + 0.5 * fmean(h.slice(-7));

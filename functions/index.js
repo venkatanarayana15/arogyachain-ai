@@ -4,7 +4,7 @@
  * Entry point. Wires four capabilities:
  *   1. onTransactionWrite  — RTDB trigger → forecast → Risk Score → alert if > 80
  *   2. computeAllRisks     — scheduled every 30 min, re-scores all PHC×medicine pairs
- *   3. forecastLocal       — gradient-boosted-style fallback forecaster (no Vertex bill)
+ *   3. forecastLocal       — weighted-ensemble fallback forecaster (no Vertex bill)
  *   4. parseVoiceCommand   — Gemini API natural-language stock update parser
  *   5. recommendTransfer / executeTransfer — redistribution logic + alert dispatch
  *
@@ -116,7 +116,7 @@ async function scoreAndMaybeAlert(phcId, medKey, inv) {
     }
   } catch (e) {
     forecast = await forecastLocal({ recent: inv.history14 || [], horizon: HORIZON_DAYS });
-    source = "local-gbm";
+      source = "local-ensemble";
   }
 
   const total7d = forecast.reduce((a, b) => a + b, 0);

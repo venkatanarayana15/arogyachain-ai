@@ -6,7 +6,7 @@ ArogyaChain AI — Backtest & Validation (Day 5 evidence, Asset 4)
 Answers the judge question: "does the forecaster actually work?"
 
 Compares on the LAST 28 DAYS of the synthetic corpus (held out):
-  A) local-gbm  — the exact Cloud Function fallback (functions/lib/forecastLocal.js),
+  A) local-ensemble  — the exact Cloud Function fallback (functions/lib/forecastLocal.js),
                   re-implemented here feature-identically
   B) seasonal-naive baseline (t-7 persistence) — "the dumb rule-based system"
                   that the pitch says AI should beat
@@ -33,7 +33,7 @@ def fmean(xs):
     return sum(xs) / len(xs) if xs else 0.0
 
 
-def forecast_local_gbm(history, horizon=7):
+def forecast_local_ensemble(history, horizon=7):
     """Python port of functions/lib/forecastLocal.js (must stay in sync)."""
     h = [float(x) for x in history]
     out = []
@@ -94,7 +94,7 @@ def main():
     holdout_dates = dates[-args.holdout:]
 
     # walk-forward evaluation: each holdout day gets a 7-day forecast made from history before it
-    errs = {"local-gbm": {"ape": [], "sape": []}, "seasonal-naive": {"ape": [], "sape": []}}
+    errs = {"local-ensemble": {"ape": [], "sape": []}, "seasonal-naive": {"ape": [], "sape": []}}
     sample_results = []  # for the chart
     sample_keys = None
 
@@ -107,12 +107,12 @@ def main():
             history = [by_date.get((dates[j]).isoformat(), 0.0) for j in range(len(dates) - args.holdout + i)]
             if len(history) < 14:
                 continue
-            pred_gbm = forecast_local_gbm(history, 1)
+            pred_ens = forecast_local_ensemble(history, 1)
             pred_naive = forecast_seasonal_naive(history, 1)
             a = actual[0]
             if a > 0:
-                errs["local-gbm"]["ape"].append(abs(a - pred_gbm[0]) / a)
-                errs["local-gbm"]["sape"].append(abs(a - pred_gbm[0]) / max((a + pred_gbm[0]) / 2, 1e-9))
+                errs["local-ensemble"]["ape"].append(abs(a - pred_ens[0]) / a)
+                errs["local-ensemble"]["sape"].append(abs(a - pred_ens[0]) / max((a + pred_ens[0]) / 2, 1e-9))
                 errs["seasonal-naive"]["ape"].append(abs(a - pred_naive[0]) / a)
                 errs["seasonal-naive"]["sape"].append(abs(a - pred_naive[0]) / max((a + pred_naive[0]) / 2, 1e-9))
         # keep 3 chart samples: highest-variance series we encounter first
@@ -122,7 +122,7 @@ def main():
                 history_full = [by_date.get(d.isoformat(), 0.0) for d in dates[:cutoff]]
                 if len(history_full) < 30:
                     continue
-                fc = forecast_local_gbm(history_full, args.holdout)
+                fc = forecast_local_ensemble(history_full, args.holdout)
                 actuals = [by_date.get(d.isoformat(), 0.0) for d in holdout_dates]
                 sample_results.append({
                     "key": "|".join(key),
@@ -140,18 +140,21 @@ def main():
         }
 
     improvement = None
-    if metrics["seasonal-naive"]["mape"] and metrics["local-gbm"]["mape"]:
+    if metrics["seasonal-naive"]["mape"] and metrics["local-ensemble"]["mape"]:
         improvement = round(
-            100 * (1 - metrics["local-gbm"]["mape"] / metrics["seasonal-naive"]["mape"]), 1
+            100 * (1 - metrics["local-ensemble"]["mape"] / metrics["seasonal-naive"]["mape"]), 1
         )
 
     out = {
         "holdout_days": args.holdout,
         "series_count": len(series),
         "models": metrics,
-        "gbm_improvement_over_naive_pct": improvement,
-        "note": "local-gbm is the on-device fallback (feature-identical port of functions/lib/forecastLocal.js). "
-                "Vertex AutoML (primary model) is evaluated in-console on the same held-out window.",
+        "ensemble_improvement_over_naive_pct": improvement,
+        "note": "local-ensemble is the on-device fallback (feature-identical port of functions/lib/forecastLocal.js) "
+                "and is the forecaster the shipped demo actually runs. Vertex AutoML consumes the identical "
+                "feature contract (data/vertex_training.csv) and is the primary model once an endpoint is "
+                "configured, but it is NOT included in these numbers - do not quote this file as Vertex "
+                "validation. Stock-out impact is measured separately by impact_sim.py.",
     }
     mpath = os.path.join(args.outdir, "validation_metrics.json")
     with open(mpath, "w", encoding="utf-8") as f:
@@ -169,7 +172,7 @@ def main():
         fig, axes = plt.subplots(3, 1, figsize=(10, 8), sharex=False)
         for ax, s in zip(axes, sample_results[:3]):
             ax.plot(s["dates"], s["actual"], label="Actual", color="#111")
-            ax.plot(s["dates"], s["forecast"], label="Forecast (local-gbm)", color="#0B6E4F", linestyle="--")
+            ax.plot(s["dates"], s["forecast"], label="Forecast (local-ensemble)", color="#0B6E4F", linestyle="--")
             ax.set_title(s["key"], fontsize=9)
             ax.legend(fontsize=8)
             ax.tick_params(axis="x", labelsize=7, rotation=45)
@@ -189,7 +192,7 @@ def render_svg(samples, metrics):
     W, H = 900, 260 * max(len(samples), 1)
     parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" font-family="monospace">']
     parts.append(f'<text x="20" y="24" font-size="16" font-weight="bold">ArogyaChain AI — Actual vs Forecast (28-day holdout)</text>')
-    parts.append(f'<text x="20" y="44" font-size="12">MAPE local-gbm: {metrics["local-gbm"]["mape"]}% | seasonal-naive: {metrics["seasonal-naive"]["mape"]}%</text>')
+    parts.append(f'<text x="20" y="44" font-size="12">MAPE local-ensemble: {metrics["local-ensemble"]["mape"]}% | seasonal-naive: {metrics["seasonal-naive"]["mape"]}%</text>')
     for i, s in enumerate(samples):
         oy = 70 + i * 240
         all_v = s["actual"] + s["forecast"]

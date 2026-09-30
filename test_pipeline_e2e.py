@@ -10,7 +10,7 @@ and asserts the cross-artifact invariants a judge (or a teammate) would check:
   2. Every RTDB key in inventory_seed.json is Firebase-safe
   3. Vertex CSV has exactly the columns AutoML Forecasting requires
   4. Series counts match across artifacts (240 = 8 PHCs × 30 medicines)
-  5. Backtest core claim: local-gbm beats seasonal-naive on MAPE
+  5. Backtest core claim: local ensemble beats seasonal-naive on MAPE
   6. Stock/out events actually exist (the problem is real in the data)
 
 Run: python test_pipeline_e2e.py   (exit 1 on any failure)
@@ -144,13 +144,13 @@ def main():
         # ---------------- 5. backtest claim ----------------
         def t_backtest_claim():
             m = json.load(open(os.path.join(data, "validation_metrics.json"), encoding="utf-8"))
-            gbm = m["models"]["local-gbm"]["mape"]
+            ens = m["models"]["local-ensemble"]["mape"]
             naive = m["models"]["seasonal-naive"]["mape"]
-            assert gbm is not None and naive is not None, "metrics missing"
-            assert m["models"]["local-gbm"]["n"] > 5000, "too few evaluated points"
-            assert gbm < naive, f"core claim failed: gbm {gbm} >= naive {naive}"
-            assert 0 < gbm < 50, f"gbm MAPE out of sane range: {gbm}"
-        check("backtest: local-gbm MAPE beats seasonal-naive baseline", t_backtest_claim)
+            assert ens is not None and naive is not None, "metrics missing"
+            assert m["models"]["local-ensemble"]["n"] > 5000, "too few evaluated points"
+            assert ens < naive, f"core claim failed: ensemble {ens} >= naive {naive}"
+            assert 0 < ens < 50, f"ensemble MAPE out of sane range: {ens}"
+        check("backtest: local ensemble MAPE beats seasonal-naive baseline", t_backtest_claim)
 
         # ---------------- 6. the problem is real in the data ----------------
         def t_stockouts():
@@ -158,6 +158,28 @@ def main():
             stockouts = sum(1 for r in rows if r[5] == "stockout")
             assert stockouts > 3000, f"expected >3k stock-out events, got {stockouts}"
         check("data realism: >3,000 stock-out events present", t_stockouts)
+
+        # ---------------- 7. the impact claim is measured, not asserted ----------------
+        r4 = subprocess.run(
+            [sys.executable, os.path.abspath("impact_sim.py"), "--holdout", "28", "--outdir", "data"],
+            cwd=tmp, capture_output=True, text=True)
+        assert r4.returncode == 0, f"impact_sim.py failed: {r4.stderr[-500:]}"
+
+        def t_impact_claim():
+            m = json.load(open(os.path.join(data, "impact_metrics.json"), encoding="utf-8"))
+            base, inter = m["baseline"], m["intervention"]
+            assert base["total_stockouts"] > 1000, "baseline has too few stock-outs to be meaningful"
+            assert inter["total_stockouts"] < base["total_stockouts"], "intervention never helped"
+            # the conservative figure the deck quotes is the nearest-neighbour floor
+            nearest = min(m["sensitivity_geographic_reach"],
+                          key=lambda s: 99 if s["donor_reach_phcs"] == "all" else s["donor_reach_phcs"])
+            floor = nearest["reduction_pct"]
+            assert 40 < floor < 90, f"degraded-case reduction implausible: {floor}%"
+            # a stress test that does not degrade is a rigged result
+            assert floor < m["stockout_reduction_pct_full_year"], \
+                "sensitivity sweep shows no degradation — the result may be an artifact"
+            assert m["unmet_demand_reduction_pct"] > 0
+        check("impact: counterfactual measured + degrades under stress", t_impact_claim)
 
         print(f"\n{results['passed']} passed, {results['failed']} failed")
         sys.exit(1 if results["failed"] else 0)

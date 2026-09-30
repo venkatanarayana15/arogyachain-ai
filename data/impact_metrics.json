@@ -1,0 +1,75 @@
+{
+  "method": "Paired counterfactual re-simulation. Both arms consume the same RNG stream in the same order (all draws in main.py are gated on calendar conditions, not stock), so both arms face identical latent demand. The only difference is whether the redistribution matcher moved stock.",
+  "mirrors": [
+    "risk formula  -> functions/index.js scoreAndMaybeAlert",
+    "matcher       -> functions/lib/redistribution.js recommendTransfers",
+    "forecast      -> functions/lib/forecastLocal.js"
+  ],
+  "config": {
+    "phcs": 8,
+    "medicines": 30,
+    "days": 365,
+    "holdout_days": 28,
+    "seed": 42,
+    "receiver_risk": 70,
+    "donor_max_risk": 30,
+    "alert_threshold": 80
+  },
+  "baseline": {
+    "total_stockouts": 4863,
+    "holdout_stockouts": 440,
+    "units_moved": 0,
+    "transfer_events": 0,
+    "risk_alerts": 0,
+    "unmet_units": 65229
+  },
+  "intervention": {
+    "total_stockouts": 38,
+    "holdout_stockouts": 11,
+    "units_moved": 69577,
+    "transfer_events": 954,
+    "risk_alerts": 29,
+    "unmet_units": 122
+  },
+  "stockout_reduction_pct_full_year": 99.2,
+  "stockout_reduction_pct_holdout": 97.5,
+  "unmet_demand_reduction_pct": 99.8,
+  "assumptions": {
+    "transfer_latency_days": 1,
+    "max_transfers_per_day": 3,
+    "release_fraction": 0.5,
+    "donor_reach": "distance-unconstrained unless varied in the sweep",
+    "note": "Stated operational assumptions, not tuned to fit a target result."
+  },
+  "sensitivity_geographic_reach": [
+    {
+      "donor_reach_phcs": 1,
+      "stockouts": 1408,
+      "reduction_pct": 71.0,
+      "unmet_reduction_pct": 71.2,
+      "transfer_events": 1035
+    },
+    {
+      "donor_reach_phcs": 2,
+      "stockouts": 46,
+      "reduction_pct": 99.1,
+      "unmet_reduction_pct": 99.8,
+      "transfer_events": 951
+    },
+    {
+      "donor_reach_phcs": 3,
+      "stockouts": 46,
+      "reduction_pct": 99.1,
+      "unmet_reduction_pct": 99.8,
+      "transfer_events": 947
+    },
+    {
+      "donor_reach_phcs": "all",
+      "stockouts": 38,
+      "reduction_pct": 99.2,
+      "unmet_reduction_pct": 99.8,
+      "transfer_events": 954
+    }
+  ],
+  "interpretation": "The headline figure is an UPPER BOUND: this pilot simulates 8 PHCs in one district, so almost every receiver has a nearby donor. The sensitivity sweep shows how the result degrades as the district stops being fully connected, which is the honest way to state a small-pilot result. The pitch deck quotes the nearest-neighbour figure, not this one."
+}

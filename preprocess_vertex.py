@@ -8,7 +8,7 @@ Takes data/transactions_vertex.csv and produces:
   data/vertex_training.csv   -> AutoML Forecasting-ready table:
        timestamp, time_series_identifier, target, [covariates...]
   data/lag_features.csv      -> same table with explicit lag features (for the
-       local gradient-boosted fallback model + judges' "real feature engineering" story)
+       local weighted-ensemble fallback model + judges' "real feature engineering" story)
 
 Two-stage architecture note (this is the *why* for judges):
   * AutoML handles seasonality natively, but we still engineer explicit lags so the

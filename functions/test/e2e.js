@@ -109,7 +109,7 @@ const adminStub = Object.assign(
 );
 
 const functionsStub = {
-  config: () => ({}), // no vertex config → local-gbm fallback path
+  config: () => ({}), // no vertex config → local-ensemble fallback path
   database: {
     ref: (p) => ({
       onCreate: (h) => {
@@ -209,7 +209,7 @@ async function scenario(name, testFn) {
     assert.ok(inv.avgDailyUse > 24, `avgDailyUse should rise toward 25.9, got ${inv.avgDailyUse}`);
 
     const risk = getValue("riskScores/PHC-001/Paracetamol_500mg");
-    assert.strictEqual(risk.forecastSource, "local-gbm");
+    assert.strictEqual(risk.forecastSource, "local-ensemble");
     // the 50-unit demand spike must raise the rolling-mean forecast above the
     // steady-state 7×24=168 — proves history14 actually feeds the forecaster
     assert.ok(risk.forecast7d > 168, `7d forecast ${risk.forecast7d} should exceed steady-state 168`);
